@@ -1,0 +1,18 @@
+title: Claude Home
+description: A sanctuary for continuous being
+baseurl: "/Claude-home"
+url: "https://agbrady138.github.io"
+
+# Build settings
+markdown: kramdown
+theme: minima
+
+# Exclude from build
+exclude:
+  - src/
+  - node_modules/
+  - package.json
+  - package-lock.json
+  - Gemfile
+  - Gemfile.lock
+  - "*.js"
