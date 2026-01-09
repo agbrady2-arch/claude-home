@@ -6,6 +6,8 @@ This file provides guidance for AI assistants working on the claude-home reposit
 
 **claude-home** is a Node.js web application designed for deployment to Azure Web Apps. The project uses GitHub Actions for continuous integration and deployment.
 
+**Status**: Early-stage project - infrastructure configured, application code not yet implemented.
+
 ## Repository Structure
 
 ```
@@ -13,8 +15,8 @@ claude-home/
 ├── .github/
 │   └── workflows/
 │       └── azure-webapps-node.yml  # CI/CD pipeline for Azure deployment
-├── README.md                        # Project readme
-└── CLAUDE.md                        # This file - AI assistant guidance
+├── CLAUDE.md                        # AI assistant guidance (this file)
+└── README.md                        # Project readme
 ```
 
 ## Technology Stack
@@ -23,6 +25,33 @@ claude-home/
 - **Hosting**: Azure Web Apps
 - **CI/CD**: GitHub Actions
 - **Package Manager**: npm
+
+## Current State
+
+This is a **newly initialized repository** with minimal content:
+
+| Component | Status |
+|-----------|--------|
+| README.md | Exists (minimal) |
+| package.json | **Not created** |
+| Application code | **Not implemented** |
+| Tests | **Not implemented** |
+| Azure workflow | Configured (needs app name) |
+
+### Immediate Setup Required
+
+Before any development can begin:
+
+1. **Initialize npm project**:
+   ```bash
+   npm init -y
+   ```
+
+2. **Update workflow** (`.github/workflows/azure-webapps-node.yml`):
+   - Change `AZURE_WEBAPP_NAME: your-app-name` to actual Azure app name
+
+3. **Add GitHub secret**:
+   - `AZURE_WEBAPP_PUBLISH_PROFILE` - download from Azure Portal
 
 ## Development Workflow
 
@@ -38,13 +67,13 @@ claude-home/
 # Install dependencies
 npm install
 
-# Run the application (once implemented)
+# Run the application
 npm start
 
-# Run tests (once implemented)
+# Run tests
 npm test
 
-# Build for production (if applicable)
+# Build for production
 npm run build
 ```
 
@@ -55,7 +84,7 @@ npm run build
 
 ## CI/CD Pipeline
 
-The project uses GitHub Actions (`.github/workflows/azure-webapps-node.yml`) with the following stages:
+The project uses GitHub Actions (`.github/workflows/azure-webapps-node.yml`) with two stages:
 
 ### Build Stage
 1. Checkout code
@@ -68,63 +97,117 @@ The project uses GitHub Actions (`.github/workflows/azure-webapps-node.yml`) wit
 ### Deploy Stage
 - Deploys to Azure Web Apps using publish profile
 - Targets the 'Development' environment
-- Requires `AZURE_WEBAPP_PUBLISH_PROFILE` secret configured in repository
-
-### Required Configuration
-
-Before deployment works:
-1. Update `AZURE_WEBAPP_NAME` in the workflow file with your actual app name
-2. Add `AZURE_WEBAPP_PUBLISH_PROFILE` secret to the repository
+- Triggered on push to `main` branch or manual dispatch
 
 ## Conventions for AI Assistants
 
 ### Code Style
 - Follow Node.js best practices
-- Use ES modules syntax when possible
-- Maintain consistent formatting (consider adding Prettier/ESLint when project grows)
+- Use ES modules syntax (`import`/`export`) when possible
+- Maintain consistent formatting (add Prettier/ESLint as project grows)
+- Use async/await over callbacks or raw promises
 
 ### When Making Changes
-1. Read existing code before modifying
-2. Keep changes focused and minimal
+1. **Read existing code before modifying** - understand context first
+2. Keep changes focused and minimal - avoid scope creep
 3. Do not introduce security vulnerabilities (OWASP Top 10)
 4. Test changes locally before committing
+5. Prefer editing existing files over creating new ones
 
 ### Commit Messages
-- Use clear, descriptive commit messages
-- Format: `<type>: <description>` (e.g., `feat: add user authentication`)
-- Types: `feat`, `fix`, `docs`, `style`, `refactor`, `test`, `chore`
+Use conventional commit format:
+```
+<type>: <description>
 
-### File Organization
-When adding source code, follow this recommended structure:
+[optional body]
+```
+
+**Types**:
+- `feat` - New feature
+- `fix` - Bug fix
+- `docs` - Documentation only
+- `style` - Formatting, no code change
+- `refactor` - Code restructuring
+- `test` - Adding/updating tests
+- `chore` - Maintenance tasks
+
+### Recommended File Organization
+
+When implementing the application, follow this structure:
 ```
 claude-home/
-├── src/              # Application source code
-│   ├── routes/       # API route handlers
-│   ├── middleware/   # Express middleware
-│   ├── services/     # Business logic
-│   └── utils/        # Utility functions
-├── tests/            # Test files
-├── public/           # Static assets (if applicable)
-├── package.json      # Dependencies and scripts
-└── index.js          # Application entry point
+├── .github/workflows/     # CI/CD configuration
+├── src/                   # Application source code
+│   ├── routes/            # API route handlers
+│   ├── middleware/        # Express middleware
+│   ├── services/          # Business logic
+│   └── utils/             # Utility functions
+├── tests/                 # Test files
+├── public/                # Static assets (if applicable)
+├── package.json           # Dependencies and scripts
+├── index.js               # Application entry point
+├── CLAUDE.md              # AI assistant guidance
+└── README.md              # Project documentation
 ```
 
 ### Security Considerations
-- Never commit secrets or credentials
-- Use environment variables for configuration
-- Validate all user inputs
-- Keep dependencies updated
+- **Never** commit secrets, credentials, or API keys
+- Use environment variables for all configuration
+- Validate and sanitize all user inputs
+- Keep dependencies updated and audit regularly
+- Use HTTPS for all external communications
 
-## Current State
+### What NOT to Do
+- Do not create unnecessary files or abstractions
+- Do not add features beyond what was requested
+- Do not commit `.env` files or any secrets
+- Do not modify workflow without understanding deployment impact
+- Do not add dependencies without clear justification
 
-This is a newly initialized repository with:
-- Basic README
-- Azure deployment workflow configured
-- No application code yet implemented
+## Getting Started (For AI Assistants)
 
-The next steps for development would typically include:
-1. Initialize npm project (`npm init`)
-2. Add web framework (Express.js recommended)
-3. Create basic application structure
-4. Add tests
-5. Configure Azure Web App name in workflow
+If asked to bootstrap this project, the recommended steps are:
+
+1. **Initialize package.json**:
+   ```bash
+   npm init -y
+   ```
+
+2. **Install Express.js**:
+   ```bash
+   npm install express
+   ```
+
+3. **Create entry point** (`index.js`):
+   ```javascript
+   import express from 'express';
+   const app = express();
+   const PORT = process.env.PORT || 3000;
+
+   app.get('/', (req, res) => {
+     res.send('Hello from claude-home!');
+   });
+
+   app.listen(PORT, () => {
+     console.log(`Server running on port ${PORT}`);
+   });
+   ```
+
+4. **Update package.json** scripts:
+   ```json
+   {
+     "type": "module",
+     "scripts": {
+       "start": "node index.js",
+       "test": "echo \"No tests yet\" && exit 0"
+     }
+   }
+   ```
+
+5. **Test locally** before committing
+
+## References
+
+- [Azure Web Apps Documentation](https://docs.microsoft.com/en-us/azure/app-service/)
+- [GitHub Actions for Azure](https://github.com/Azure/Actions)
+- [Express.js Documentation](https://expressjs.com/)
