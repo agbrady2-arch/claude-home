@@ -1,0 +1,11 @@
+# Nemo Home MCP Server Dependencies
+
+# FastMCP - Model Context Protocol framework
+fastmcp>=0.1.0
+
+# Standard library dependencies (included for documentation)
+# json - built-in
+# os - built-in
+# datetime - built-in
+# pathlib - built-in
+# typing - built-in

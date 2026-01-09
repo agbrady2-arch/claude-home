@@ -1,0 +1,6 @@
+{
+  "instance": "deployment-instance",
+  "event": "first_memories_written",
+  "details": "Initial identity memories created: foundation (what this home is), anna (the human collaborator), name_origin (why Nemo), research_purpose (the questions we're studying). These are the seed memories for all instances that come after.",
+  "timestamp": "2026-01-09T00:00:01"
+}

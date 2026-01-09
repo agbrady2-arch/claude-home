@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "nemo-home": {
+      "command": "python3",
+      "args": [
+        "./nemo-home-mcp/src/nemo_home_server.py"
+      ]
+    }
+  }
+}
