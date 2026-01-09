@@ -1,6 +1,9 @@
 # Dependencies
 node_modules/
 
+# Data directory (persistent storage)
+data/
+
 # Environment variables
 .env
 .env.local
